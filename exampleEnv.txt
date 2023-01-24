@@ -1,5 +1,9 @@
-Should be named .env.[development || production || test].local and placed in the root of the project.
+Should be named .env.[ development || production || test ].local and placed in the root of the project.
 
 PORT=[Your Port]
 MODE=[environment mode] 
-DB_URI=[postgres connection string]
+PGHOST=[URL]
+PGPORT=[port]
+PGUSER=[username]
+PGPASSWORD=[password]
+PGDATABASE=[database name]

@@ -15,14 +15,6 @@
   "scripts": {
     "start": "node -r dotenv/config www.js dotenv_config_path=./.env.production.local",
     "dev": "nodemon -r dotenv/config www.js dotenv_config_path=./.env.development.local",
-    "test": "mocha"
-  },
-  "mocha": {
-    "require": [
-      "dotenv/config"
-    ],
-    "env": "dotenv_config_path=./.env.test.local",
-    "timeout": 10000,
-    "exit": true
+    "test": "mocha --exit"
   }
 }
