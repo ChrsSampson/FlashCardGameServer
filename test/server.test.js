@@ -47,7 +47,7 @@ describe('Server Health and function Test', () => {
     });
 })
 
-describe('database operations', () => {
+describe('user API database operations', () => {
 
     afterEach( (done) => {
         request(app)
@@ -89,6 +89,32 @@ describe('database operations', () => {
                 expect(res.body.result.data.username).to.equal('test');
                 expect(res.body.result.data.color).to.equal('#aaa');
                 done();
+            });
+    });
+
+    it('Should be able to update a user by Id', (done) => {
+        request(app)
+            .post('/api/users')
+            .send({
+                username: 'test',
+            })
+            .expect(201)
+            .end((err, res) => {
+                if(err) return done(err);
+                request(app)
+                    .patch('/api/users/' + res.body.result.data.id)
+                    .send({
+                        username: 'test2',
+                        color: '#bbb'
+                    })
+                    .expect(200)
+                    .end((err, res) => {
+                        if(err) return done(err);
+                        expect(res.body.result.message).to.equal('User updated');
+                        expect(res.body.result.data.username).to.equal('test2');
+                        expect(res.body.result.data.color).to.equal('#bbb');
+                        done();
+                    });
             });
     });
 });

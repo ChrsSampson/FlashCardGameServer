@@ -56,6 +56,22 @@ router.delete('/:username', async (req, res, next) => {
     }
 });
 
+router.patch('/:id', async (req, res, next) => {
+    const {id} = req.params;
+    const {username, color} = req.body;
+    if(id){
+        try{
+            const user = await User.updateById(id, {username, color});
+            const response = new Response(200, 'User updated', user);
+            response.send(res);
+        } catch(err){
+            const response = new Response(400, err.message, null);
+        }
+    } else {
+        throw new Error('No id provided');
+    }
+});
+
 // throw 400 error if invalid route
 router.use((req, res, next) => {
     const response = new Response(400, 'Unsupported Method/Route', null);
