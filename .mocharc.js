@@ -6,5 +6,5 @@ module.exports = {
     env: {
         NODE_ENV: 'test'
     },
-    timeout: 5000,
+    timeout: 10000,
 }

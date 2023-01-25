@@ -14,6 +14,10 @@ const client = new Client();
 
 client.connect()
     .then(() => console.log('connected to database'))
-    .catch(err => console.error('connection error', err.stack));
+    .catch(err => {
+        console.log(err)
+        throw new Error('Database fault');
+        process.exit(1);
+    });
 
 module.exports = client;

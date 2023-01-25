@@ -1,4 +1,4 @@
-// user database model 
+// user database model
 
 const client = require('./connect');
 
@@ -13,9 +13,19 @@ class User extends Model {
     // this user should be deleted after 24 hours of inactivity
     // this users should only keep track of gameSessions the user is apart of and the users name
 
-    async create(username, color) {
-        const sql = `INSERT INTO ${this.table} (username, color) VALUES ($1, $2) RETURNING *`;
-        const result = await this.client.query(sql, [username, color]);
+    async create(username, color='#fff') {
+        try{
+            const sql = `INSERT INTO ${this.table} (username, color) VALUES ($1, $2) RETURNING *`;
+            const result = await this.client.query(sql, [username, color]);
+            return result.rows[0];
+        } catch(err) {
+            throw new Error(err);
+        }
+    }
+
+    async deleteByUsername(username) {
+        const sql = `DELETE FROM ${this.table} WHERE username = $1`;
+        const result = await this.client.query(sql, [username]);
         return result.rows[0];
     }
 
